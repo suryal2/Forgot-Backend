@@ -3,9 +3,11 @@ const { CheckUser } = require("../controllers/login");
 const { InsertVerifyUser,InsertSignUpUser } = require("../controllers/signin")
 const router = express.Router();
 
-router.get("/:token", async (req,res)=>{
+router.get("/succ/:token", async (req,res)=>{
 try{
-    const response = await InsertSignUpUser(req.params.token)
+    const  token  = req.params;
+    console.log("sss",token)
+    const response = await InsertSignUpUser(token)
     res.status(200).send(response);
 
 } catch (e){

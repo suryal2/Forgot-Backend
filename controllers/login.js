@@ -1,7 +1,7 @@
 const  User = require("../models/User");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-const client = require("../redis");
+const client = require("../radisUrl");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 dotenv.config();
@@ -53,6 +53,7 @@ async function AuthenticateUser(email, password){
 async function AuthorizeUser(token){
   try{
     const decodedToken = jwt.verify(token, process.env.login_secret_token);
+    console.log("surya",decodedToken);
     if(decodedToken) {
       const email = decodedToken.email;
       console.log(email);
@@ -61,7 +62,7 @@ async function AuthorizeUser(token){
       if (auth){
         const data = JSON.parse(auth)
          
-        return data
+        return data 
         
       } else {
         const data = await User.findOne({email: email})
@@ -76,5 +77,8 @@ async function AuthorizeUser(token){
 
 
 
+
+ 
+ 
 
 module.exports = { CheckUser,AuthenticateUser, AuthorizeUser };

@@ -5,7 +5,7 @@ dotenv.config();
 
 const redisClient = () =>{
     return redis.createClient({
-       url:process.env.redis_url,
+    //    url:process.env.redis_url,
     })
 }
 
@@ -17,11 +17,11 @@ client.on("error", (err)=>{
 
  
 client.on("connect", ()=>{
-    console.log("connected to redis in redis");
+    console.log("connected to radis in redis");
 });
 
 client.on("end", ()=>{
-    console.log("redis connection ended");
+    console.log("radis connection ended");
 });
 
 client.on("SIGQUIT", ()=>{

@@ -1,12 +1,12 @@
 const express = require("express");
 const { AuthenticateUser } = require("../controllers/login");
-const client = require("../redis");
+const client = require("../radisUrl");
 const router = express.Router();
 
 client
 .connect()
 .then(()=>{
-   console.log("connected to redis in login");
+   console.log("connected to radisUrl in login");
 })
 .catch((e)=>{
    console.log(e);
@@ -14,11 +14,13 @@ client
 
 
 
+
 router.post("/", async (req,res)=>{
     try{
       const { email, password } = await req.body;
+     
       var loginCredentials = await AuthenticateUser(email,password);
-      console.log(loginCredentials);
+      console.log("login",loginCredentials);
       if (loginCredentials === "Invalid User name or password"){
          res.status(200).send( "Invalid User name or password");
       } else if(loginCredentials === "Server Busy"){
